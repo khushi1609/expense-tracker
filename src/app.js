@@ -11,6 +11,11 @@ dotenv.config();
 dbConnect();
 
 app.use(express.json());
+
+app.get("/",(req, res) => {
+    res.json({msg: "Welcome to Expenses Tracker API"});
+});
+
 //routes
 app.use("/",userRoute);
 
