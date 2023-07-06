@@ -1,8 +1,10 @@
 const express = require("express");
-const { registerUser,fetchUsersCtrl } = require("../../controllers/users/userCtrl");
+const { registerUser,fetchUsersCtrl, loginUserCtrl
+} = require("../../controllers/users/userCtrl");
 const userRoute = express.Router();
 
 userRoute.post('/register', registerUser);
+userRoute.post('/login', loginUserCtrl);
 userRoute.get("/",fetchUsersCtrl);
 
 module.exports = userRoute;

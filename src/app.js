@@ -1,41 +1,37 @@
-const express = require("express");
-//require('dotenv').config();
+const express = require('express');
 const dotenv = require('dotenv');
-const dbConnect = require("./config/dbConnect");
-const userRoute = require("./routes/users/userRoutes");
-const {errorHandler,notFound} = require("./middlewares/errorMiddleware");
+const dbConnect = require('./config/dbConnect');
+const userRoute = require('./routes/users/userRoutes');
+const { errorHandler, notFound } = require('./middlewares/errorMiddleware');
+const incomeRoute = require('./routes/income/incomeRoutes');
+const expenseRoute = require('./routes/expense/expenseRoutes');
 const app = express();
 
 dotenv.config();
-//dbConnect
+
 dbConnect();
 
+//middlewares
 app.use(express.json());
 
 app.get("/",(req, res) => {
-    res.json({msg: "Welcome to Expenses Tracker API"});
+    res.json({msg: "Welcome! to Expenses tracker API"});
 });
 
-//routes
-app.use("/",userRoute);
+//users routes
+app.use("/api/users", userRoute);
 
-app.use("/api/users",userRoute);
-//app.post('/register',registerUser);
+//income routes
+app.use("/api/income", incomeRoute);
 
-// app.post('/login',(req, res) => {
-//     res.json({user: "admin"});
-// });
+//expense routes
 
-// app.delete('/:id',(req, res) => {
-//     res.json({user: "admin"});
-// });
+app.use("/api/expenses", expenseRoute);
 
-// app.put('/:id',(req, res) => {
-//     res.json({user: "admin"});
-// });
-
+//Error
 app.use(notFound);
-app.use(errorHandler); 
+app.use(errorHandler);
+
 
 
 module.exports = app;
